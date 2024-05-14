@@ -1,17 +1,34 @@
 import { Router } from "express";
-import User from "./models/User.js";
+import Product from "./models/Product.js";
 import middleware from "./middleware.js";
 
 const router = Router();
 
 router.get("/user", middleware.jwtCheck, async (req, res) => {
-  const user = await User.find({ email: req.user.email });
-  res.send(user);
+  res.send("Hello from user route!");
 });
 
-router.get("/product", async (req, res) => {
-  const user = await User.find({ email: req.user.email });
-  res.send(user);
+router.get("/product/:productId", async (req, res, next) => {
+  try {
+    const product = await Product.findById(req.params.productId).exec();
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    return res.json(product);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/products", async (req, res) => {
+  const product = new Product({
+    name: "test",
+  });
+
+  await product.save();
+
+  const products = await Product.find().exec();
+  res.json(products);
 });
 
 export default router;

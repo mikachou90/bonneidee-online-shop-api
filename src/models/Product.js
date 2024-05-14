@@ -1,9 +1,7 @@
 import { Schema, model } from "mongoose";
 
-const userSchema = Schema({
+const productSchema = Schema({
   name: String,
-  description: String,
-  picture: String,
 });
 
-export default model("User", userSchema);
+export default model("products", productSchema);
