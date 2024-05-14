@@ -1,11 +1,13 @@
 import { Router } from "express";
+import { jwtDecode } from "jwt-decode";
 import Product from "./models/Product.js";
 import middleware from "./middleware.js";
 
 const router = Router();
 
-router.get("/user", middleware.jwtCheck, async (req, res) => {
-  res.send("Hello from user route!");
+router.get("/user", middleware.checkToken, async (req, res) => {
+  const decoded = jwtDecode(req.auth.token);
+  res.send(decoded);
 });
 
 router.get("/product/:productId", async (req, res, next) => {
