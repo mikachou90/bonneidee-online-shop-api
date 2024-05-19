@@ -87,7 +87,6 @@ router.get("/user", requests.user.getUserId);
 router.get("/user/info", requests.user.getUserInfo);
 
 // CART ROUTES
-
 router.get("/cart", requests.cart.getCart);
 router.post(
   "/cart",

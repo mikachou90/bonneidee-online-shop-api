@@ -30,3 +30,27 @@ const updateCart = async (req, res, next) => {
 };
 
 export default updateCart;
+
+/**
+ * @swagger
+ * /cart:
+ *   patch:
+ *     summary: Update the user cart
+ *     security:
+ *      - bearerAuth: []
+ *     parameters:
+ *       - name: productId
+ *         description: a valid product id.
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: quantity
+ *         description: the product quantity.
+ *         in: formData
+ *         required: true
+ *         type: number
+ *     description: update the user cart data
+ *     responses:
+ *       200:
+ *         description: return the cart
+ */

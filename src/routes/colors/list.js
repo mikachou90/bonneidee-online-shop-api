@@ -10,3 +10,16 @@ const list = async (req, res, next) => {
 };
 
 export default list;
+
+/**
+ * @swagger
+ * /colors:
+ *   get:
+ *     summary: List colors
+ *     security:
+ *      - bearerAuth: []
+ *     description: get colors list
+ *     responses:
+ *       200:
+ *         description: return the colors
+ */

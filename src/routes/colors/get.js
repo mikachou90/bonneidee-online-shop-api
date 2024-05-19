@@ -11,3 +11,16 @@ const get = async (req, res, next) => {
 };
 
 export default get;
+
+/**
+ * @swagger
+ * /colors/{colorId}:
+ *   get:
+ *     summary: Get the color
+ *     security:
+ *      - bearerAuth: []
+ *     description: get the color
+ *     responses:
+ *       200:
+ *         description: return the color
+ */

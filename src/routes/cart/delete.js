@@ -16,3 +16,16 @@ const deleteCart = async (req, res, next) => {
 };
 
 export default deleteCart;
+
+/**
+ * @swagger
+ * /cart:
+ *   delete:
+ *     summary: Empty cart
+ *     security:
+ *      - bearerAuth: []
+ *     description: Empty new cart
+ *     responses:
+ *       200:
+ *         description: return the empty cart
+ */

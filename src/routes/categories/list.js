@@ -10,3 +10,16 @@ const list = async (req, res, next) => {
 };
 
 export default list;
+
+/**
+ * @swagger
+ * /categories:
+ *   get:
+ *     summary: List categories
+ *     security:
+ *      - bearerAuth: []
+ *     description: get categories list
+ *     responses:
+ *       200:
+ *         description: return the categories
+ */

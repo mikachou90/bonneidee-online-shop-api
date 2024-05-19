@@ -15,3 +15,27 @@ const createCategory = async (req, res, next) => {
 };
 
 export default createCategory;
+
+/**
+ * @swagger
+ * /categories:
+ *   post:
+ *     summary: Create category
+ *     security:
+ *      - bearerAuth: []
+ *     parameters:
+ *       - name: name
+ *         description: category name.
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: description
+ *         description: the category description.
+ *         in: formData
+ *         required: true
+ *         type: number
+ *     description: create new category
+ *     responses:
+ *       200:
+ *         description: return the new category
+ */

@@ -15,3 +15,16 @@ const deleteCategory = async (req, res, next) => {
 };
 
 export default deleteCategory;
+
+/**
+ * @swagger
+ * /categories/{categoryId}:
+ *   delete:
+ *     summary: Delete category
+ *     security:
+ *      - bearerAuth: []
+ *     description: Delete category
+ *     responses:
+ *       200:
+ *         description:
+ */

@@ -21,3 +21,16 @@ const updateProduct = async (req, res, next) => {
 };
 
 export default updateProduct;
+
+/**
+ * @swagger
+ * /products/{productId}:
+ *   patch:
+ *     summary: Update the product
+ *     security:
+ *      - bearerAuth: []
+ *     description: update the product
+ *     responses:
+ *       200:
+ *         description: return the product
+ */

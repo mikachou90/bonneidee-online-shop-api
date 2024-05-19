@@ -11,3 +11,16 @@ const get = async (req, res, next) => {
 };
 
 export default get;
+
+/**
+ * @swagger
+ * /categories/{categoryId}:
+ *   get:
+ *     summary: Get the category
+ *     security:
+ *      - bearerAuth: []
+ *     description: get the category
+ *     responses:
+ *       200:
+ *         description: return the category
+ */

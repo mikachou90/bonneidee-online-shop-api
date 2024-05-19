@@ -12,3 +12,16 @@ const createColor = async (req, res, next) => {
 };
 
 export default createColor;
+
+/**
+ * @swagger
+ * /colors:
+ *   post:
+ *     summary: Create color
+ *     security:
+ *      - bearerAuth: []
+ *     description: create new color
+ *     responses:
+ *       200:
+ *         description: return the new color
+ */

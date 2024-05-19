@@ -1,13 +1,3 @@
-/**
- * @swagger
- * /user:
- *   get:
- *     description: get user from auth0
- *     responses:
- *       200:
- *         description: Returns some user data.
- */
-
 const getUserId = async (req, res, next) => {
   try {
     const userId = req.user.id;
@@ -27,3 +17,16 @@ const getUserId = async (req, res, next) => {
 };
 
 export default getUserId;
+
+/**
+ * @swagger
+ * /user:
+ *   get:
+ *     security:
+ *      - bearerAuth: []
+ *     summary: Get simple user data
+ *     description: get user from auth0
+ *     responses:
+ *       200:
+ *         description: Returns some user data.
+ */
