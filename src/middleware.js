@@ -65,25 +65,30 @@ const formatFields = (fields) => {
   };
 };
 
-const validateParamsField = () => {
-  return (req, res, next, param) => {
-    const isValid = formatUtils.isAMongoId(param);
+const validateParamsField = (req, res, next, param) => {
+  const isValid = formatUtils.isAMongoId(param);
 
-    if (!isValid) {
-      return res.status(400).json({
-        code: 400,
-        message: "Invalid ID: " + param,
-      });
-    }
+  if (!isValid) {
+    return res.status(400).json({
+      code: 400,
+      message: "Invalid ID: " + param,
+    });
+  }
 
-    return next();
-  };
+  return next();
 };
 
 const validateBodyIdsFields = (fields) => {
   return (req, res, next) => {
     const errorFields = fields.filter((field) => {
-      return !formatUtils.isAMongoId(req.body[field]);
+      const fieldToCheck = req.body[field];
+      if (typeof fieldToCheck === "array") {
+        return fieldToCheck.some((f) => !formatUtils.isAMongoId(f));
+      }
+      if (typeof fieldToCheck === "string") {
+        return !formatUtils.isAMongoId(fieldToCheck);
+      }
+      return true;
     });
 
     if (errorFields.length > 0) {
@@ -143,8 +148,8 @@ const insertAuthPayload = (req, res, next) => {
 
 export default {
   checkToken,
-  canAdminWrite,
-  canAdminDelete,
+  canAdminWrite: [checkToken, insertAuthPayload, canAdminWrite],
+  canAdminDelete: [checkToken, insertAuthPayload, canAdminDelete],
   validateBodyFields,
   validateBodyIdsFields,
   validateParamsField,

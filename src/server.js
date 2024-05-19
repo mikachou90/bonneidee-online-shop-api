@@ -2,12 +2,28 @@ import express from "express";
 import morgan from "morgan";
 import bodyParser from "body-parser";
 import methodOverride from "method-override";
-import packageInfo from "../package.json" assert { type: "json" };
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 import router from "./router.js";
 import cors from "cors";
 import mongoose from "mongoose";
 import config from "../appConfig.js";
 import errorHandler from "./errorHandler.js";
+
+const swaggerOptions = {
+  explorer: true,
+  failOnErrors: false,
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Bonne idee API",
+      version: "1.0.0",
+    },
+  },
+  apis: ["src/routes/**/*.js"],
+};
+
+const swaggerDocument = swaggerJsdoc(swaggerOptions);
 
 mongoose.set("strictQuery", false);
 
@@ -34,13 +50,8 @@ mongoose
 
     app.use(cors(corsOptions));
 
-    // Serve the index page for all other requests
-    app.get("/api/info", (_, res) => {
-      //send a json response with the api verison
-      res.json({ version: packageInfo.version });
-    });
-
-    app.use("/api", router);
+    app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+    app.use("/api/v1", router);
 
     //handle errors
     app.use(errorHandler.handleServerError);

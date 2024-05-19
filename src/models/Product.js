@@ -5,6 +5,11 @@ const productSchema = Schema({
   description: { type: String, required: true },
   picture: { type: String, required: false },
   price: { type: Number, index: true, required: true },
+  colors: {
+    type: [Schema.Types.ObjectId],
+    default: [],
+    ref: "Color",
+  },
   category: {
     index: true,
     type: Schema.Types.ObjectId,
