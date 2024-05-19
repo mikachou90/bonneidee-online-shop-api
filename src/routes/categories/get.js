@@ -17,8 +17,6 @@ export default get;
  * /categories/{categoryId}:
  *   get:
  *     summary: Get the category
- *     security:
- *      - bearerAuth: []
  *     description: get the category
  *     responses:
  *       200:

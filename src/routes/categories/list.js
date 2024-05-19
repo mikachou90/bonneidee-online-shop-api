@@ -16,8 +16,6 @@ export default list;
  * /categories:
  *   get:
  *     summary: List categories
- *     security:
- *      - bearerAuth: []
  *     description: get categories list
  *     responses:
  *       200:

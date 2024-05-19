@@ -17,8 +17,6 @@ export default get;
  * /colors/{colorId}:
  *   get:
  *     summary: Get the color
- *     security:
- *      - bearerAuth: []
  *     description: get the color
  *     responses:
  *       200:

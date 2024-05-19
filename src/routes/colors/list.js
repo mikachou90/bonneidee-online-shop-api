@@ -16,8 +16,6 @@ export default list;
  * /colors:
  *   get:
  *     summary: List colors
- *     security:
- *      - bearerAuth: []
  *     description: get colors list
  *     responses:
  *       200:
