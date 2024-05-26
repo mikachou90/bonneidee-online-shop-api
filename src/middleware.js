@@ -1,10 +1,9 @@
 import { auth } from "express-oauth2-jwt-bearer";
-import appConfig from "../appConfig.js";
 import formatUtils from "./utils/formatUtils.js";
 
 const checkToken = auth({
-  audience: appConfig.audience,
-  issuerBaseURL: appConfig.issuerBaseURL,
+  audience: process.env.audience,
+  issuerBaseURL: process.env.issuerBaseURL,
 });
 
 const validateBodyFields = (fields) => {

@@ -1,13 +1,15 @@
+//package imports
 import express from "express";
 import morgan from "morgan";
 import bodyParser from "body-parser";
 import methodOverride from "method-override";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-import router from "./router.js";
 import cors from "cors";
 import mongoose from "mongoose";
-import config from "../appConfig.js";
+import "dotenv/config";
+
+import router from "./router.js";
 import errorHandler from "./errorHandler.js";
 //Model Docs
 import { cartSchemaDoc } from "./models/Cart.js";
@@ -70,7 +72,7 @@ const swaggerDocument = swaggerJsdoc(swaggerOptions);
 mongoose.set("strictQuery", false);
 
 mongoose
-  .connect(config.mongoUrl)
+  .connect(process.env.mongoUrl)
   .then(() => {
     console.log("Connected to MongoDB");
 
@@ -86,7 +88,7 @@ mongoose
     app.use(methodOverride());
 
     const corsOptions = {
-      origin: config.baseAppUrl,
+      origin: process.env.baseAppUrl,
       optionsSuccessStatus: 200,
     };
 
