@@ -9,14 +9,14 @@ const updateCart = async (req, res, next) => {
       return res.status(404).json({ error: "Cart not found" });
     }
     const existingProduct = cart.products.find(
-      (p) => p.product.toString() === productId
+      (p) => p.product.toString() === productId,
     );
     if (!existingProduct) {
       return res.status(404).json({ error: "Product not found in cart" });
     }
     if (quantity === 0) {
       cart.products = cart.products.filter(
-        (p) => p.product.toString() !== productId
+        (p) => p.product.toString() !== productId,
       );
     } else {
       existingProduct.quantity = quantity;

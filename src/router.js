@@ -12,7 +12,7 @@ router.param("colorId", middleware.validateParamsField);
 router.all(
   ["/user*", "/cart*"],
   middleware.checkToken,
-  middleware.insertAuthPayload
+  middleware.insertAuthPayload,
 );
 
 // PRODUCTS ROUTES
@@ -33,13 +33,13 @@ router.post(
   ]),
   middleware.formatFields([["price", "number"]]),
   middleware.validateBodyIdsFields(["category", "colors"]),
-  requests.products.createProduct
+  requests.products.createProduct,
 );
 router.patch(
   "/products/:productId",
   middleware.canAdminWrite,
   middleware.formatFields([["price", "number"]]),
-  requests.products.updateProduct
+  requests.products.updateProduct,
 );
 router.delete("/producs/:productId", middleware.canAdminDelete);
 
@@ -49,17 +49,17 @@ router.get("/categories/:categoryId", requests.categories.getCategory);
 router.post(
   "/categories",
   middleware.canAdminWrite,
-  requests.categories.createCategory
+  requests.categories.createCategory,
 );
 router.patch(
   "/categories/:categoryId",
   middleware.canAdminWrite,
-  requests.categories.updateCategory
+  requests.categories.updateCategory,
 );
 router.delete(
   "/categories/:categoryId",
   middleware.canAdminDelete,
-  requests.categories.deleteCategory
+  requests.categories.deleteCategory,
 );
 
 // COLORS
@@ -69,17 +69,17 @@ router.post(
   "/colors",
   middleware.canAdminWrite,
   middleware.validateBodyFields(["name"]),
-  requests.colors.createColor
+  requests.colors.createColor,
 );
 router.patch(
   "/colors/:colorId",
   middleware.canAdminWrite,
-  requests.colors.updateColor
+  requests.colors.updateColor,
 );
 router.delete(
   "/colors/:colorId",
   middleware.canAdminDelete,
-  requests.colors.deleteColor
+  requests.colors.deleteColor,
 );
 
 // USER
@@ -93,14 +93,14 @@ router.post(
   middleware.validateBodyFields(["productId", "quantity"]),
   middleware.formatFields([["quantity", "number"]]),
   middleware.validateBodyIdsFields(["productId"]),
-  requests.cart.createCart
+  requests.cart.createCart,
 );
 router.patch(
   "/cart",
   middleware.validateBodyFields(["productId", "quantity"]),
   middleware.formatFields([["quantity", "number"]]),
   middleware.validateBodyIdsFields(["productId"]),
-  requests.cart.updateCart
+  requests.cart.updateCart,
 );
 router.delete("/cart", requests.cart.deleteCart);
 

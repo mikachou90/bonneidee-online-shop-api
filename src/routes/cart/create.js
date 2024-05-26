@@ -14,7 +14,7 @@ const createCart = async (req, res, next) => {
       cart = new Cart({ userId, products: [] });
     }
     const existingProduct = cart.products.find(
-      (p) => p.product.toString() === productId
+      (p) => p.product.toString() === productId,
     );
     if (existingProduct) {
       existingProduct.quantity += quantity;
