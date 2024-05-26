@@ -1,3 +1,5 @@
+import Cart from "../../models/Cart.js";
+
 const getCart = async (req, res, next) => {
   try {
     const userId = req.user.id;

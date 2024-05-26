@@ -36,24 +36,27 @@ const formatFields = (fields) => {
     fields.forEach(([field, format]) => {
       if (req.body[field]) {
         switch (format) {
-          case "lowercase":
+          case "lowercase": {
             const lower = req.body[field].toLowerCase();
             if (typeof lower === "string") {
               req.body[field] = lower;
             }
             break;
-          case "uppercase":
+          }
+          case "uppercase": {
             const upper = req.body[field].toUpperCase();
             if (typeof upper === "string") {
               req.body[field] = upper;
             }
             break;
-          case "number":
+          }
+          case "number": {
             const num = parseInt(req.body[field]);
             if (!isNaN(num)) {
               req.body[field] = num;
             }
             break;
+          }
           default:
             console.log("default ");
             break;
@@ -82,7 +85,7 @@ const validateBodyIdsFields = (fields) => {
   return (req, res, next) => {
     const errorFields = fields.filter((field) => {
       const fieldToCheck = req.body[field];
-      if (typeof fieldToCheck === "array") {
+      if (Array.isArray(fieldToCheck)) {
         return fieldToCheck.some((f) => !formatUtils.isAMongoId(f));
       }
       if (typeof fieldToCheck === "string") {
