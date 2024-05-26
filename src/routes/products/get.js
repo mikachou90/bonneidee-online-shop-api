@@ -21,6 +21,7 @@ export default getProduct;
  *   get:
  *     summary: Get product
  *     description: get product data
+ *     tags: [Products]
  *     responses:
  *       200:
  *         description: Returns product.

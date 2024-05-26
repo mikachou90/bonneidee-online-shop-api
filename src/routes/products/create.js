@@ -36,6 +36,7 @@ export default create;
  *       required: true
  *       description: The user id
  *     description: create new product
+ *     tags: [Admin]
  *     responses:
  *       200:
  *         description: return the new product

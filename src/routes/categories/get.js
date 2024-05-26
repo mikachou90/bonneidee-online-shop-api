@@ -18,6 +18,7 @@ export default get;
  *   get:
  *     summary: Get the category
  *     description: get the category
+ *     tags: [Categories]
  *     responses:
  *       200:
  *         description: return the category

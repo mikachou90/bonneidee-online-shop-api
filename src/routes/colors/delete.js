@@ -24,6 +24,7 @@ export default deleteColor;
  *     security:
  *      - bearerAuth: []
  *     description: Delete color
+ *     tags: [Admin]
  *     responses:
  *       200:
  *         description:

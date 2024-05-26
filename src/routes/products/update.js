@@ -30,6 +30,7 @@ export default updateProduct;
  *     security:
  *      - bearerAuth: []
  *     description: update the product
+ *     tags: [Admin]
  *     responses:
  *       200:
  *         description: return the product

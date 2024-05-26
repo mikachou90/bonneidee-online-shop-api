@@ -24,6 +24,7 @@ export default deleteCategory;
  *     security:
  *      - bearerAuth: []
  *     description: Delete category
+ *     tags: [Admin]
  *     responses:
  *       200:
  *         description:

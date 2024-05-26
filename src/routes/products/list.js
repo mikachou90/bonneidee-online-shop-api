@@ -17,6 +17,7 @@ export default list;
  *   get:
  *     summary: List products
  *     description: get products list
+ *     tags: [Products]
  *     responses:
  *       200:
  *         description: Returns product.

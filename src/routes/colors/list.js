@@ -17,6 +17,7 @@ export default list;
  *   get:
  *     summary: List colors
  *     description: get colors list
+ *     tags: [Colors]
  *     responses:
  *       200:
  *         description: return the colors

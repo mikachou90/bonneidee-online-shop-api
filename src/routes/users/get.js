@@ -26,6 +26,7 @@ export default getUserId;
  *      - bearerAuth: []
  *     summary: Get simple user data
  *     description: get user from auth0
+ *     tags: [User]
  *     responses:
  *       200:
  *         description: Returns some user data.

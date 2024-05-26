@@ -18,6 +18,7 @@ export default get;
  *   get:
  *     summary: Get the color
  *     description: get the color
+ *     tags: [Colors]
  *     responses:
  *       200:
  *         description: return the color

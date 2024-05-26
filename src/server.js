@@ -19,6 +19,11 @@ const swaggerOptions = {
       title: "Bonne idee API",
       version: "1.0.0",
     },
+    servers: [
+      {
+        url: "http://localhost:3000/api/v1",
+      },
+    ],
   },
   apis: ["src/routes/**/*.js"],
 };

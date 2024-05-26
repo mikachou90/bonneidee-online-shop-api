@@ -25,6 +25,7 @@ export default deleteCart;
  *     security:
  *      - bearerAuth: []
  *     description: Empty new cart
+ *     tags: [Cart]
  *     responses:
  *       200:
  *         description: return the empty cart

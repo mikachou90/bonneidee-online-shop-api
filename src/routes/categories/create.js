@@ -35,6 +35,7 @@ export default createCategory;
  *         required: true
  *         type: number
  *     description: create new category
+ *     tags: [Admin]
  *     responses:
  *       200:
  *         description: return the new category

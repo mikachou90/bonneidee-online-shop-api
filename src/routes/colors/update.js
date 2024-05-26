@@ -30,6 +30,7 @@ export default updateColor;
  *     security:
  *      - bearerAuth: []
  *     description: update the color
+ *     tags: [Admin]
  *     responses:
  *       200:
  *         description: return the color

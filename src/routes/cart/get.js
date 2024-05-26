@@ -23,6 +23,7 @@ export default getCart;
  *     security:
  *      - bearerAuth: []
  *     description: get the user cart data
+ *     tags: [Cart]
  *     responses:
  *       200:
  *         description: return the cart

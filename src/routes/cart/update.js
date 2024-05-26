@@ -50,6 +50,7 @@ export default updateCart;
  *         required: true
  *         type: number
  *     description: update the user cart data
+ *     tags: [Cart]
  *     responses:
  *       200:
  *         description: return the cart

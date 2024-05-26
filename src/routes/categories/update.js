@@ -38,6 +38,7 @@ export default updateCategory;
  *         required: true
  *         type: number
  *     description: update category
+ *     tags: [Admin]
  *     responses:
  *       200:
  *         description: return the new category data

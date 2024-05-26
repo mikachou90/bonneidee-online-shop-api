@@ -17,6 +17,7 @@ export default list;
  *   get:
  *     summary: List categories
  *     description: get categories list
+ *     tags: [Categories]
  *     responses:
  *       200:
  *         description: return the categories

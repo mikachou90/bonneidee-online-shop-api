@@ -38,6 +38,7 @@ export default createCart;
  *     security:
  *      - bearerAuth: []
  *     description: create new cart
+ *     tags: [Cart]
  *     parameters:
  *       - name: productId
  *         description: a valid product id.

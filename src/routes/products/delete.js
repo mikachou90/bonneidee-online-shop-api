@@ -24,6 +24,7 @@ export default deleteProduct;
  *     security:
  *      - bearerAuth: []
  *     description: Delete product
+ *     tags: [Admin]
  *     responses:
  *       200:
  *         description:

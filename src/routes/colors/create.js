@@ -21,6 +21,7 @@ export default createColor;
  *     security:
  *      - bearerAuth: []
  *     description: create new color
+ *     tags: [Admin]
  *     responses:
  *       200:
  *         description: return the new color
