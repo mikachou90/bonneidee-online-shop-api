@@ -86,7 +86,7 @@ app.use(bodyParser.json());
 app.use(methodOverride());
 
 const corsOptions = {
-  origin: process.env.baseAppUrl,
+  origin: "*",
   optionsSuccessStatus: 200,
 };
 
