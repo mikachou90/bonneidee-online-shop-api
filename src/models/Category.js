@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
 
 const categorySchema = Schema({
-  name: { type: String, index: true, required: true },
-  description: { type: String, required: true },
+  name: { type: String, index: true, required: true, unique: true },
+  description: { type: String },
 });
 
 export default model("Category", categorySchema);
@@ -10,7 +10,7 @@ export default model("Category", categorySchema);
 export const categorySchemaDoc = {
   Category: {
     type: "object",
-    required: ["name", "description"],
+    required: ["name"],
     properties: {
       name: {
         type: "string",

@@ -2,8 +2,8 @@ import { Schema, model } from "mongoose";
 
 const productSchema = Schema({
   name: { type: String, index: true, required: true },
-  description: { type: String, required: true },
-  picture: { type: String, required: false },
+  description: { type: String },
+  picture: { type: String },
   price: { type: Number, index: true, required: true },
   colors: {
     type: [Schema.Types.ObjectId],
@@ -13,7 +13,6 @@ const productSchema = Schema({
   category: {
     index: true,
     type: Schema.Types.ObjectId,
-    required: true,
     ref: "Category",
   },
 });
@@ -23,7 +22,7 @@ export default model("Product", productSchema);
 export const productSchemaDoc = {
   Product: {
     type: "object",
-    required: ["name", "description", "price", "category"],
+    required: ["name", "price"],
     properties: {
       name: {
         type: "string",
@@ -46,11 +45,11 @@ export const productSchemaDoc = {
         items: {
           type: "string",
         },
-        description: "The product colors",
+        description: "The product colors ids",
       },
       category: {
         type: "string",
-        description: "The product category",
+        description: "The product category id",
       },
     },
   },

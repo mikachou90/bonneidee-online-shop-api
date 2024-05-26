@@ -21,14 +21,7 @@ router.get("/products", requests.products.listProducts);
 router.post(
   "/products",
   middleware.canAdminWrite,
-  middleware.validateBodyFields([
-    "name",
-    "description",
-    "picture",
-    "price",
-    "category",
-    "colors",
-  ]),
+  middleware.validateBodyFields(["name", "price"]),
   middleware.formatFields([["price", "number"]]),
   middleware.validateBodyIdsFields(["category", "colors"]),
   requests.products.createProduct,
