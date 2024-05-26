@@ -7,7 +7,7 @@ const deleteProduct = async (req, res, next) => {
     if (!product) {
       return res.status(404).json({ error: "Product not found" });
     }
-    await product.remove();
+    await product.delete();
     res.send({ message: "Product deleted" });
   } catch (err) {
     next(err);

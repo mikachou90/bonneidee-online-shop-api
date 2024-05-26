@@ -7,7 +7,7 @@ const deleteColor = async (req, res, next) => {
     if (!color) {
       return res.status(404).json({ error: "Color not found" });
     }
-    await color.remove();
+    await color.delete();
     res.send({ message: "Color deleted" });
   } catch (err) {
     next(err);
