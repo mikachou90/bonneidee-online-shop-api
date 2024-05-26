@@ -23,6 +23,8 @@ import { colorsDocs } from "./routes/colors/doc/colors.js";
 import { productsDocs } from "./routes/products/doc/products.js";
 import { userDocs } from "./routes/users/doc/user.js";
 
+const app = express();
+
 const swaggerOptions = {
   explorer: true,
   failOnErrors: false,
@@ -71,41 +73,35 @@ const swaggerDocument = swaggerJsdoc(swaggerOptions);
 
 mongoose.set("strictQuery", false);
 
-mongoose
-  .connect(process.env.mongoUrl)
-  .then(() => {
-    console.log("Connected to MongoDB");
+await mongoose.connect(process.env.mongoUrl);
+console.log("Connected to DB");
 
-    const app = express();
+app.use(morgan("dev"));
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  }),
+);
+app.use(bodyParser.json());
+app.use(methodOverride());
 
-    app.use(morgan("dev"));
-    app.use(
-      bodyParser.urlencoded({
-        extended: true,
-      }),
-    );
-    app.use(bodyParser.json());
-    app.use(methodOverride());
+const corsOptions = {
+  origin: process.env.baseAppUrl,
+  optionsSuccessStatus: 200,
+};
 
-    const corsOptions = {
-      origin: process.env.baseAppUrl,
-      optionsSuccessStatus: 200,
-    };
+app.use(cors(corsOptions));
 
-    app.use(cors(corsOptions));
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api/v1", router);
 
-    app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-    app.use("/api/v1", router);
+//handle errors
+app.use(errorHandler.handleServerError);
 
-    //handle errors
-    app.use(errorHandler.handleServerError);
+//handle not found errors
+app.use(errorHandler.handleNotFoundError);
 
-    //handle not found errors
-    app.use(errorHandler.handleNotFoundError);
+// Listen on port 3000
+app.listen(3000, () => console.log("Application running on port 3000"));
 
-    // Listen on port 3000
-    app.listen(3000, () => console.log("Application running on port 3000"));
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+export default app;
