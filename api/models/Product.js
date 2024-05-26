@@ -15,6 +15,7 @@ const productSchema = Schema({
     type: Schema.Types.ObjectId,
     ref: "Category",
   },
+  sizeDescription: { type: String },
 });
 
 export default model("Product", productSchema);
@@ -50,6 +51,10 @@ export const productSchemaDoc = {
       category: {
         type: "string",
         description: "The product category id",
+      },
+      sizeDescription: {
+        type: "string",
+        description: "The product size description",
       },
     },
   },

@@ -2,7 +2,15 @@ import Product from "../../models/Product.js";
 
 const create = async (req, res, next) => {
   try {
-    const { name, description, picture, price, category, colors } = req.body;
+    const {
+      name,
+      description,
+      picture,
+      price,
+      category,
+      colors,
+      sizeDescription,
+    } = req.body;
 
     const newProduct = new Product({
       name,
@@ -11,6 +19,7 @@ const create = async (req, res, next) => {
       price,
       category,
       colors,
+      sizeDescription,
     });
     await newProduct.save();
     res.send(newProduct);
