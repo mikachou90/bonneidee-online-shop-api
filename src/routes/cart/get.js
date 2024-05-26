@@ -16,17 +16,3 @@ const getCart = async (req, res, next) => {
 };
 
 export default getCart;
-
-/**
- * @swagger
- * /cart:
- *   get:
- *     summary: Get the user cart
- *     security:
- *      - bearerAuth: []
- *     description: get the user cart data
- *     tags: [Cart]
- *     responses:
- *       200:
- *         description: return the cart
- */

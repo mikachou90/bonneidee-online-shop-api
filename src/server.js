@@ -9,19 +9,56 @@ import cors from "cors";
 import mongoose from "mongoose";
 import config from "../appConfig.js";
 import errorHandler from "./errorHandler.js";
+//Model Docs
+import { cartSchemaDoc } from "./models/Cart.js";
+import { categorySchemaDoc } from "./models/Category.js";
+import { productSchemaDoc } from "./models/Product.js";
+import { colorSchemaDoc } from "./models/Color.js";
+//Routes Docs
+import { cartDocs } from "./routes/cart/doc/cart.js";
+import { categoriesDocs } from "./routes/categories/doc/categories.js";
+import { colorsDocs } from "./routes/colors/doc/colors.js";
+import { productsDocs } from "./routes/products/doc/products.js";
+import { userDocs } from "./routes/users/doc/user.js";
 
 const swaggerOptions = {
   explorer: true,
   failOnErrors: false,
   definition: {
-    openapi: "3.0.0",
+    openapi: "3.0.1",
     info: {
       title: "Bonne idee API",
+      description: "Bonne idee API Information",
       version: "1.0.0",
+    },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+      schemas: {
+        ...cartSchemaDoc,
+        ...categorySchemaDoc,
+        ...productSchemaDoc,
+        ...colorSchemaDoc,
+      },
+    },
+    paths: {
+      ...cartDocs,
+      ...categoriesDocs,
+      ...colorsDocs,
+      ...productsDocs,
+      ...userDocs,
     },
     servers: [
       {
         url: "http://localhost:3000/api/v1",
+      },
+      {
+        url: "https://bonneidee.com/api/v1",
       },
     ],
   },

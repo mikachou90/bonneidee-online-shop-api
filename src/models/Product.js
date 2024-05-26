@@ -19,3 +19,39 @@ const productSchema = Schema({
 });
 
 export default model("Product", productSchema);
+
+export const productSchemaDoc = {
+  Product: {
+    type: "object",
+    required: ["name", "description", "price", "category"],
+    properties: {
+      name: {
+        type: "string",
+        description: "The product name",
+      },
+      description: {
+        type: "string",
+        description: "The product description",
+      },
+      picture: {
+        type: "string",
+        description: "The product picture",
+      },
+      price: {
+        type: "number",
+        description: "The product price",
+      },
+      colors: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+        description: "The product colors",
+      },
+      category: {
+        type: "string",
+        description: "The product category",
+      },
+    },
+  },
+};

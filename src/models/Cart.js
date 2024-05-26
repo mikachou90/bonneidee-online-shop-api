@@ -15,3 +15,20 @@ const cartSchema = Schema({
 });
 
 export default model("Cart", cartSchema);
+
+export const cartSchemaDoc = {
+  Cart: {
+    type: "object",
+    required: ["productId", "quantity"],
+    properties: {
+      productId: {
+        type: "string",
+        description: "The product id",
+      },
+      quantity: {
+        type: "integer",
+        description: "The quantity of the product",
+      },
+    },
+  },
+};

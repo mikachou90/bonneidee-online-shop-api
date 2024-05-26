@@ -21,17 +21,3 @@ const updateColor = async (req, res, next) => {
 };
 
 export default updateColor;
-
-/**
- * @swagger
- * /colors/{colorId}:
- *   patch:
- *     summary: Update the color
- *     security:
- *      - bearerAuth: []
- *     description: update the color
- *     tags: [Admin]
- *     responses:
- *       200:
- *         description: return the color
- */

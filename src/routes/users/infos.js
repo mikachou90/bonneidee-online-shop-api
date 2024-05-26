@@ -9,17 +9,3 @@ const userInfo = async (req, res, next) => {
 };
 
 export default userInfo;
-
-/**
- * @swagger
- * /user/info:
- *   get:
- *     security:
- *     - bearerAuth: []
- *     summary: Get auth0 user data
- *     description: get user from auth0
- *     tags: [User]
- *     responses:
- *       200:
- *         description: Returns some user data.
- */

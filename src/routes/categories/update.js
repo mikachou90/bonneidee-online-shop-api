@@ -18,28 +18,3 @@ const updateCategory = async (req, res, next) => {
 };
 
 export default updateCategory;
-
-/**
- * @swagger
- * /categories/{categoryId}:
- *   patch:
- *     summary: Update category
- *     security:
- *      - bearerAuth: []
- *     parameters:
- *       - name: name
- *         description: category name.
- *         in: formData
- *         required: true
- *         type: string
- *       - name: description
- *         description: the category description.
- *         in: formData
- *         required: true
- *         type: number
- *     description: update category
- *     tags: [Admin]
- *     responses:
- *       200:
- *         description: return the new category data
- */

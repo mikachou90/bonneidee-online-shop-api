@@ -15,17 +15,3 @@ const deleteColor = async (req, res, next) => {
 };
 
 export default deleteColor;
-
-/**
- * @swagger
- * /colors/{colorsId}:
- *   delete:
- *     summary: Delete color
- *     security:
- *      - bearerAuth: []
- *     description: Delete color
- *     tags: [Admin]
- *     responses:
- *       200:
- *         description:
- */

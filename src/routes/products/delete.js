@@ -15,17 +15,3 @@ const deleteProduct = async (req, res, next) => {
 };
 
 export default deleteProduct;
-
-/**
- * @swagger
- * /products/{productId}:
- *   delete:
- *     summary: Delete product
- *     security:
- *      - bearerAuth: []
- *     description: Delete product
- *     tags: [Admin]
- *     responses:
- *       200:
- *         description:
- */

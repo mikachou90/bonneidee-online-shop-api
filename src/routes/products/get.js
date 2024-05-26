@@ -14,15 +14,3 @@ const getProduct = async (req, res, next) => {
 };
 
 export default getProduct;
-
-/**
- * @swagger
- * /products/{productId}:
- *   get:
- *     summary: Get product
- *     description: get product data
- *     tags: [Products]
- *     responses:
- *       200:
- *         description: Returns product.
- */

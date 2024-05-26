@@ -29,28 +29,3 @@ const createCart = async (req, res, next) => {
 };
 
 export default createCart;
-
-/**
- * @swagger
- * /cart:
- *   post:
- *     summary: Create cart
- *     security:
- *      - bearerAuth: []
- *     description: create new cart
- *     tags: [Cart]
- *     parameters:
- *       - name: productId
- *         description: a valid product id.
- *         in: formData
- *         required: true
- *         type: string
- *       - name: quantity
- *         description: the product quantity.
- *         in: formData
- *         required: true
- *         type: number
- *     responses:
- *       200:
- *         description: return the new cart
- */

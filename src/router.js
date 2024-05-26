@@ -18,8 +18,6 @@ router.all(
 // PRODUCTS ROUTES
 router.get("/products/:productId", requests.products.getProduct);
 router.get("/products", requests.products.listProducts);
-
-// admin only
 router.post(
   "/products",
   middleware.canAdminWrite,

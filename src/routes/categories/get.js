@@ -11,15 +11,3 @@ const get = async (req, res, next) => {
 };
 
 export default get;
-
-/**
- * @swagger
- * /categories/{categoryId}:
- *   get:
- *     summary: Get the category
- *     description: get the category
- *     tags: [Categories]
- *     responses:
- *       200:
- *         description: return the category
- */

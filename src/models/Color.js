@@ -7,3 +7,24 @@ const colorSchema = Schema({
 });
 
 export default model("Color", colorSchema);
+
+export const colorSchemaDoc = {
+  Color: {
+    type: "object",
+    required: ["name"],
+    properties: {
+      name: {
+        type: "string",
+        description: "The color name",
+      },
+      hex: {
+        type: "string",
+        description: "The color hexadecimal code",
+      },
+      description: {
+        type: "string",
+        description: "The color description",
+      },
+    },
+  },
+};
