@@ -10,6 +10,7 @@ const create = async (req, res, next) => {
       category,
       colors,
       sizeDescription,
+      maxColors,
     } = req.body;
 
     const newProduct = new Product({
@@ -20,6 +21,7 @@ const create = async (req, res, next) => {
       category,
       colors,
       sizeDescription,
+      maxColors,
     });
     await newProduct.save();
     res.send(newProduct);

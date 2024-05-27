@@ -16,6 +16,7 @@ const productSchema = Schema({
     ref: "Category",
   },
   sizeDescription: { type: String },
+  maxColors: { type: Number, default: 1, required: true, min: 1 },
 });
 
 export default model("Product", productSchema);
@@ -55,6 +56,10 @@ export const productSchemaDoc = {
       sizeDescription: {
         type: "string",
         description: "The product size description",
+      },
+      maxColors: {
+        type: "number",
+        description: "The product max colors. Minimum 1.",
       },
     },
   },
