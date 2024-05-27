@@ -32,7 +32,11 @@ router.patch(
   middleware.formatFields([["price", "number"]]),
   requests.products.updateProduct,
 );
-router.delete("/producs/:productId", middleware.canAdminDelete);
+router.delete(
+  "/products/:productId",
+  middleware.canAdminDelete,
+  requests.products.deleteProduct,
+);
 
 // CATEGORY ROUTES
 router.get("/categories", requests.categories.listCategories);
