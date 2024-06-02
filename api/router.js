@@ -1,6 +1,6 @@
 import { Router } from "express";
 import middleware from "./middleware.js";
-import requests from "./routes/all.js";
+import requests from "./routes/index.js";
 
 const router = Router();
 
@@ -85,16 +85,16 @@ router.get("/user/info", requests.user.getUserInfo);
 router.get("/cart", requests.cart.getCart);
 router.post(
   "/cart",
-  middleware.validateBodyFields(["productId", "quantity"]),
+  middleware.validateBodyFields(["productId", "quantity", "colorId"]),
   middleware.formatFields([["quantity", "number"]]),
-  middleware.validateBodyIdsFields(["productId"]),
+  middleware.validateBodyIdsFields(["productId", "colorId"]),
   requests.cart.createCart,
 );
 router.patch(
   "/cart",
-  middleware.validateBodyFields(["productId", "quantity"]),
+  middleware.validateBodyFields(["productId"]),
   middleware.formatFields([["quantity", "number"]]),
-  middleware.validateBodyIdsFields(["productId"]),
+  middleware.validateBodyIdsFields(["productId", "colorId"]),
   requests.cart.updateCart,
 );
 router.delete("/cart", requests.cart.deleteCart);
