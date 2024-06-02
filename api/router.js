@@ -85,9 +85,9 @@ router.get("/user/info", requests.user.getUserInfo);
 router.get("/cart", requests.cart.getCart);
 router.post(
   "/cart",
-  middleware.validateBodyFields(["productId", "quantity", "colorId"]),
+  middleware.validateBodyFields(["productId", "quantity"]),
   middleware.formatFields([["quantity", "number"]]),
-  middleware.validateBodyIdsFields(["productId", "colorId"]),
+  middleware.validateBodyIdsFields(["productId"]),
   requests.cart.createCart,
 );
 router.patch(

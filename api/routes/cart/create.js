@@ -4,21 +4,23 @@ import Product from "../../models/Product.js";
 const createCart = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    const { productId, quantity, colorId } = req.body;
+    const { productId, quantity, colorIds } = req.body;
 
     //Validate body request
     const product = await Product.findById(productId).exec();
     if (!product) {
       return res.status(400).json({ error: "Product not found" });
     }
-    const colorExists = product.colors.find(
-      (c) => c._id.toString() === colorId,
+    //check if colors exists in product
+    const colorExists = colorIds.every((colorId) =>
+      product.colors.some((color) => color._id.toString() === colorId),
     );
     if (!colorExists) {
       return res
         .status(400)
         .json({ error: "Color not found for this product" });
     }
+
     //check if the quantity is a number > 0
     if (!Number.isInteger(quantity) || quantity <= 0) {
       return res.status(400).json({ error: "Quantity must be a number > 0" });
@@ -47,7 +49,7 @@ const createCart = async (req, res, next) => {
     if (existingProduct) {
       return res.status(400).json({ error: "Product already exists in cart" });
     } else {
-      cart.products.push({ product: productId, quantity, color: colorId });
+      cart.products.push({ product: productId, quantity, color: colorIds });
     }
     await cart.save();
     res.send(cart);

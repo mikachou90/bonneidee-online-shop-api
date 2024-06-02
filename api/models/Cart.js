@@ -10,10 +10,13 @@ const cartSchema = Schema({
         ref: "Product",
       },
       quantity: { type: Number, required: true },
-      color: {
-        type: Schema.Types.ObjectId,
-        ref: "Color",
+      colors: {
+        type: "array",
         required: true,
+        items: {
+          type: Schema.Types.ObjectId,
+          ref: "Color",
+        },
       },
     },
   ],
@@ -26,19 +29,44 @@ export default model("Cart", cartSchema);
 export const cartSchemaDoc = {
   Cart: {
     type: "object",
-    required: ["productId", "quantity", "colorId"],
+    required: ["userId", "products"],
     properties: {
-      productId: {
+      userId: {
         type: "string",
-        description: "The product id",
+        description: "The user id",
       },
-      quantity: {
-        type: "integer",
-        description: "The quantity of the product",
+      products: {
+        type: "array",
+        items: {
+          type: "object",
+          required: ["product", "quantity", "colors"],
+          properties: {
+            product: {
+              type: "string",
+              description: "The product id",
+            },
+            quantity: {
+              type: "integer",
+              description: "The quantity of the product",
+            },
+            colors: {
+              type: "array",
+              description:
+                "The color ids of the product. First is the main color",
+              items: {
+                type: "string",
+              },
+            },
+          },
+        },
       },
-      colorId: {
+      creationDate: {
         type: "string",
-        description: "The color id of the product",
+        description: "The creation date",
+      },
+      orderId: {
+        type: "string",
+        description: "The order id",
       },
     },
   },

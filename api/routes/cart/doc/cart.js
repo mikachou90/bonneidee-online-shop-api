@@ -14,7 +14,27 @@ export const cartDocs = {
         content: {
           "application/json": {
             schema: {
-              $ref: "#/components/schemas/Cart",
+              type: "object",
+              properties: {
+                productId: {
+                  type: "string",
+                  description: "The product id",
+                  required: true,
+                },
+                quantity: {
+                  type: "integer",
+                  description: "The quantity of the product",
+                  required: true,
+                },
+                colorIds: {
+                  type: "array",
+                  items: {
+                    type: "string",
+                  },
+                  description: "The color ids of the product",
+                  required: true,
+                },
+              },
             },
           },
         },
