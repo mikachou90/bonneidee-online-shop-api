@@ -10,7 +10,7 @@ router.param("colorId", middleware.validateParamsField);
 
 // protect all routes starting with /user, /cart
 router.all(
-  ["/user*", "/cart*"],
+  ["/user*", "/cart*", "/orders*"],
   middleware.checkToken,
   middleware.insertAuthPayload,
 );
@@ -98,5 +98,20 @@ router.patch(
   requests.cart.updateCart,
 );
 router.delete("/cart", requests.cart.deleteCart);
+
+// ORDER ROUTES
+router.get("/orders", requests.orders.listOrders);
+router.get("/orders/:orderId", requests.orders.getOrder);
+router.post(
+  "/orders",
+  middleware.validateBodyFields(["cartId", "shippingAddress", "paymentMethod"]),
+  middleware.validateBodyIdsFields(["cartId"]),
+  requests.orders.createOrder,
+);
+router.patch(
+  "/orders/:orderId",
+  middleware.canAdminWrite,
+  requests.orders.updateOrder,
+);
 
 export default router;

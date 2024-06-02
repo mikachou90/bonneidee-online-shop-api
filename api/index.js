@@ -16,12 +16,14 @@ import { cartSchemaDoc } from "./models/Cart.js";
 import { categorySchemaDoc } from "./models/Category.js";
 import { productSchemaDoc } from "./models/Product.js";
 import { colorSchemaDoc } from "./models/Color.js";
+import { orderSchemaDoc } from "./models/Order.js";
 //Routes Docs
 import { cartDocs } from "./routes/cart/doc/cart.js";
 import { categoriesDocs } from "./routes/categories/doc/categories.js";
 import { colorsDocs } from "./routes/colors/doc/colors.js";
 import { productsDocs } from "./routes/products/doc/products.js";
 import { userDocs } from "./routes/users/doc/user.js";
+import { ordersDocs } from "./routes/orders/doc/orders.js";
 
 const app = express();
 
@@ -48,6 +50,7 @@ const swaggerOptions = {
         ...categorySchemaDoc,
         ...productSchemaDoc,
         ...colorSchemaDoc,
+        ...orderSchemaDoc,
       },
     },
     paths: {
@@ -56,6 +59,7 @@ const swaggerOptions = {
       ...colorsDocs,
       ...productsDocs,
       ...userDocs,
+      ...ordersDocs,
     },
     servers: [
       {

@@ -7,9 +7,28 @@ const updateCart = async (req, res, next) => {
     const { productId, quantity, colorId } = req.body;
 
     //Check if cart exists
-    const cart = await Cart.findOne({ userId }).exec();
-    if (!cart) {
+    const carts = await Cart.find({
+      userId,
+      orderId: { $exists: false },
+    }).exec();
+
+    if (carts.length === 0) {
       return res.status(404).json({ error: "Cart not found" });
+    }
+    if (carts.length > 1) {
+      //critical error, user has multiple active carts
+      return res.status(400).json({ error: "Multiple active carts found" });
+    }
+
+    const cart = carts[0];
+
+    if (!cart || cart.userId.toString() !== userId) {
+      //we do not want to expose the reason why the cart was not found
+      return res.status(400).json({ error: "Cart error" });
+    }
+
+    if (cart.orderId) {
+      return res.status(400).json({ error: "Cannot update a closed cart" });
     }
 
     //Check if product exists in cart

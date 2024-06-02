@@ -17,6 +17,8 @@ const cartSchema = Schema({
       },
     },
   ],
+  creationDate: { type: Date, required: true, default: Date.now },
+  orderId: { type: Schema.Types.ObjectId, ref: "Order" },
 });
 
 export default model("Cart", cartSchema);

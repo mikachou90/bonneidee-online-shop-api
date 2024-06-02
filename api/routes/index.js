@@ -24,6 +24,11 @@ import deleteCart from "./cart/delete.js";
 import getUserId from "./users/get.js";
 import getUserInfo from "./users/infos.js";
 
+import createOrder from "./orders/create.js";
+import listOrders from "./orders/list.js";
+import getOrder from "./orders/get.js";
+import updateOrder from "./orders/update.js";
+
 export default {
   products: {
     getProduct,
@@ -55,5 +60,11 @@ export default {
     getCart,
     updateCart,
     deleteCart,
+  },
+  orders: {
+    createOrder,
+    listOrders,
+    getOrder,
+    updateOrder,
   },
 };

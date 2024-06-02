@@ -25,10 +25,20 @@ const createCart = async (req, res, next) => {
     }
 
     //Add product to cart
-    let cart = await Cart.findOne({ userId }).exec();
-    if (!cart) {
-      cart = new Cart({ userId, products: [] });
+    const openCarts = await Cart.find({
+      userId,
+      orderId: { $exists: false },
+    }).exec();
+
+    if (openCarts?.length > 1) {
+      //critical error, user has multiple active carts
+      return res.status(400).json({ error: "Multiple active carts found" });
     }
+
+    const cart =
+      openCarts?.length === 1
+        ? openCarts[0]
+        : new Cart({ userId, products: [] });
 
     const existingProduct = cart.products.find(
       (p) => p.product.toString() === productId,
