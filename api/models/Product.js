@@ -2,16 +2,19 @@ import { Schema, model } from "mongoose";
 
 const productSchema = Schema({
   name: { type: String, index: true, required: true },
+  price: { type: Number, index: true, required: true },
   description: { type: String },
   picture: { type: String },
-  price: { type: Number, index: true, required: true },
   colors: {
-    type: [Schema.Types.ObjectId],
+    index: true,
+    required: true,
+    type: Array,
+    items: { type: Schema.Types.ObjectId, ref: "Color" },
     default: [],
-    ref: "Color",
   },
   category: {
     index: true,
+    required: true,
     type: Schema.Types.ObjectId,
     ref: "Category",
   },
