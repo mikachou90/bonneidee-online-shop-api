@@ -1,10 +1,38 @@
 import Cart from "../../models/Cart.js";
 import Product from "../../models/Product.js";
 
+const updateProductInCart = async (productId, quantity, colors) => {
+  if (quantity && quantity === 0) {
+    //remove product from cart if quantity is 0
+    cart.products = cart.products.filter(
+      (p) => p.product.toString() !== productId,
+    );
+  } else {
+    // update product quantity and/or color
+    cart.products = cart.products.map((p) => {
+      if (p.product.toString() === productId) {
+        return {
+          product: productId,
+          quantity: quantity || p.quantity,
+          color: colors || p.color,
+        };
+      } else {
+        return p;
+      }
+    });
+  }
+};
+
 const updateCart = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    const { productId, quantity, colorId } = req.body;
+    const products = req.body;
+
+    if (!products || !Array.isArray(products)) {
+      return res
+        .status(400)
+        .json({ error: "Invalid request: needs to be an array" });
+    }
 
     //Check if cart exists
     const carts = await Cart.find({
@@ -31,49 +59,48 @@ const updateCart = async (req, res, next) => {
       return res.status(400).json({ error: "Cannot update a closed cart" });
     }
 
-    //Check if product exists in cart
-    const existingProduct = cart.products.find(
-      (p) => p.product.toString() === productId,
-    );
-    if (!existingProduct) {
-      return res.status(400).json({ error: "Product not found in cart" });
+    //Get all products data
+    const productsIds = products.map((p) => p.productId);
+    const allProductsData = await Product.find({
+      _id: { $in: productsIds },
+    }).exec();
+
+    if (!allProductsData?.length) {
+      return res.status(400).json({ error: "Products not found" });
     }
 
-    if (colorId) {
-      //Check if color exists for product
-      const product = await Product.findById(productId).exec();
-      if (!product) {
-        return res.status(400).json({ error: "Product not found" });
-      }
-      const colorExists = product.colors.find(
-        (c) => c._id.toString() === colorId,
-      );
-      if (!colorExists) {
-        return res
-          .status(400)
-          .json({ error: "Color not found for this product" });
-      }
-    }
+    //map through products
+    products
+      .filter((p) => {
+        //check if product exists
+        return allProductsData.some(
+          (product) => product._id.toString() === p.productId,
+        );
+      })
+      .map(async ({ productId, quantity, colorIds }) => {
+        //Check if products exists in cart
+        const existingProduct = cart.products.some(
+          (p) => p.product.toString() === productId,
+        );
 
-    if (quantity && quantity === 0) {
-      //remove product from cart if quantity is 0
-      cart.products = cart.products.filter(
-        (p) => p.product.toString() !== productId,
-      );
-    } else {
-      // update product quantity and/or color
-      cart.products = cart.products.map((p) => {
-        if (p.product.toString() === productId) {
-          return {
-            product: productId,
-            quantity: quantity || p.quantity,
-            color: colorId || p.color,
-          };
-        } else {
-          return p;
+        if (!existingProduct) {
+          return;
         }
+
+        //check if colors exists in product
+        if (colorIds) {
+          const colorExists = colorIds.every((colorId) =>
+            productData.colors.some(
+              (color) => color._id.toString() === colorId,
+            ),
+          );
+          if (!colorExists) {
+            return;
+          }
+        }
+
+        return updateProductInCart(productData, quantity, colorIds);
       });
-    }
 
     await cart.save();
     return res.send(cart);
