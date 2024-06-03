@@ -67,7 +67,7 @@ const updateCart = async (req, res, next) => {
           return {
             product: productId,
             quantity: quantity || p.quantity,
-            color: colorId || p.color,
+            selectedColors: colorId || p.color,
           };
         } else {
           return p;

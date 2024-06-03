@@ -104,7 +104,13 @@ router.get("/orders", requests.orders.listOrders);
 router.get("/orders/:orderId", requests.orders.getOrder);
 router.post(
   "/orders",
-  middleware.validateBodyFields(["cartId", "shippingAddress", "paymentMethod"]),
+  middleware.validateBodyFields([
+    "cartId",
+    "shippingAddress",
+    "paymentMethod",
+    "shippingName",
+    "shippingContactNumber",
+  ]),
   middleware.validateBodyIdsFields(["cartId"]),
   requests.orders.createOrder,
 );

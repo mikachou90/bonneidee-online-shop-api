@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 
 const cartSchema = Schema({
-  userId: { type: String, required: true, unique: true },
+  userId: { type: String, required: true },
   products: [
     {
       product: {
@@ -10,7 +10,7 @@ const cartSchema = Schema({
         ref: "Product",
       },
       quantity: { type: Number, required: true },
-      colors: {
+      selectedColors: {
         type: "array",
         required: true,
         items: {
@@ -21,7 +21,7 @@ const cartSchema = Schema({
     },
   ],
   creationDate: { type: Date, required: true, default: Date.now },
-  orderId: { type: Schema.Types.ObjectId, ref: "Order" },
+  orderId: { type: Schema.Types.ObjectId, ref: "Order", unique: true },
 });
 
 export default model("Cart", cartSchema);
@@ -39,7 +39,7 @@ export const cartSchemaDoc = {
         type: "array",
         items: {
           type: "object",
-          required: ["product", "quantity", "colors"],
+          required: ["product", "quantity", "selectedColors"],
           properties: {
             product: {
               type: "string",
@@ -49,7 +49,7 @@ export const cartSchemaDoc = {
               type: "integer",
               description: "The quantity of the product",
             },
-            colors: {
+            selectedColors: {
               type: "array",
               description:
                 "The color ids of the product. First is the main color",

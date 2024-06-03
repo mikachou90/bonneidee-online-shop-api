@@ -27,7 +27,35 @@ export const ordersDocs = {
         content: {
           "application/json": {
             schema: {
-              $ref: "#/components/schemas/Order",
+              type: "object",
+              properties: {
+                cartId: {
+                  type: "string",
+                  description: "The cart id to create the order",
+                  required: true,
+                },
+                shippingAddress: {
+                  type: "string",
+                  description: "The shipping address to create the order",
+                  required: true,
+                },
+                paymentMethod: {
+                  type: "string",
+                  description: "The payment method to create the order",
+                  required: true,
+                },
+                shippingName: {
+                  type: "string",
+                  description: "The shipping name to create the order",
+                  required: true,
+                },
+                shippingContactNumber: {
+                  type: "number",
+                  description:
+                    "The shipping contact number to create the order",
+                  required: true,
+                },
+              },
             },
           },
         },

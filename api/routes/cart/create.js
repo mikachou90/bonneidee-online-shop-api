@@ -49,7 +49,11 @@ const createCart = async (req, res, next) => {
     if (existingProduct) {
       return res.status(400).json({ error: "Product already exists in cart" });
     } else {
-      cart.products.push({ product: productId, quantity, color: colorIds });
+      cart.products.push({
+        product: productId,
+        quantity,
+        selectedColors: colorIds,
+      });
     }
     await cart.save();
     res.send(cart);

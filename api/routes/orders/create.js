@@ -4,7 +4,13 @@ import Cart from "../../models/Cart.js";
 const createOrder = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    const { cartId, shippingAddress, paymentMethod } = req.body;
+    const {
+      cartId,
+      shippingAddress,
+      paymentMethod,
+      shippingName,
+      shippingContactNumber,
+    } = req.body;
 
     //Validate body request
     const cart = await Cart.findById(cartId).exec();
@@ -19,9 +25,10 @@ const createOrder = async (req, res, next) => {
 
     //Add order
     const order = new Order({
-      cartId,
       shippingAddress,
       paymentMethod,
+      shippingName,
+      shippingContactNumber,
     });
 
     await order.save();
