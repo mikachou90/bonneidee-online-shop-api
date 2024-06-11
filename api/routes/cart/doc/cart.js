@@ -117,28 +117,32 @@ export const cartDocs = {
         },
       ],
       description:
-        "Update the user cart data. If the quantity is 0, the product will be removed from the cart.",
+        "Update the user cart data. If the quantity of one product is 0, the product will be removed from the cart.",
       tags: ["Cart"],
       requestBody: {
-        description: "Product id, quantity and/or color to update in the cart",
+        description:
+          "Products list with Product id, quantity and/or color to update in the cart",
         required: true,
         content: {
           "application/json": {
             schema: {
-              type: "object",
-              properties: {
-                productId: {
-                  type: "string",
-                  description: "The product id",
-                  required: true,
-                },
-                quantity: {
-                  type: "integer",
-                  description: "The quantity of the product",
-                },
-                colorId: {
-                  type: "string",
-                  description: "The color id of the product",
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  productId: {
+                    type: "string",
+                    description: "The product id",
+                    required: true,
+                  },
+                  quantity: {
+                    type: "integer",
+                    description: "The quantity of the product",
+                  },
+                  colorId: {
+                    type: "string",
+                    description: "The color id of the product",
+                  },
                 },
               },
             },
