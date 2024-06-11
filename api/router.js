@@ -10,7 +10,7 @@ router.param("colorId", middleware.validateParamsField);
 
 // protect all routes starting with /user, /cart
 router.all(
-  ["/user*", "/cart*", "/orders*"],
+  ["/user*", "/cart*", "/orders*", "/favorites*"],
   middleware.checkToken,
   middleware.insertAuthPayload,
 );
@@ -118,6 +118,21 @@ router.patch(
   "/orders/:orderId",
   middleware.canAdminWrite,
   requests.orders.updateOrder,
+);
+
+// FAVORITES ROUTES
+router.get("/favorites", requests.favorites.getFavorite);
+router.post(
+  "/favorites",
+  middleware.validateBodyArrayFields(["productIds"]),
+  middleware.validateBodyArrayIdsFields(["productIds"]),
+  requests.favorites.updateFavorite,
+);
+router.delete(
+  "/favorites",
+  middleware.validateBodyArrayFields(["productIds"]),
+  middleware.validateBodyArrayIdsFields(["productIds"]),
+  requests.favorites.deleteFavorite,
 );
 
 export default router;

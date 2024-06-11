@@ -29,6 +29,10 @@ import listOrders from "./orders/list.js";
 import getOrder from "./orders/get.js";
 import updateOrder from "./orders/update.js";
 
+import getFavorite from "./favorites/get.js";
+import updateFavorite from "./favorites/update.js";
+import deleteFavorite from "./favorites/delete.js";
+
 export default {
   products: {
     getProduct,
@@ -66,5 +70,10 @@ export default {
     listOrders,
     getOrder,
     updateOrder,
+  },
+  favorites: {
+    getFavorite,
+    updateFavorite,
+    deleteFavorite,
   },
 };

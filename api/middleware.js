@@ -6,22 +6,46 @@ const checkToken = auth({
   issuerBaseURL: process.env.issuerBaseURL,
 });
 
-const validateBodyFields = (fields) => {
+const validateBodyArrayFields = (fields) => {
   return (req, res, next) => {
     if (!fields) {
-      return res
-        .status(400)
-        .json({ code: 400, message: "Missing required fields" });
+      return res.status(400).json({ code: 400, message: "Missing fields" });
     }
 
     const missingFields = fields.filter((field) => {
-      return !req.body[field];
+      return (
+        !req.body[field] ||
+        !Array.isArray(req.body[field]) ||
+        req.body[field].length === 0
+      );
     });
 
     if (missingFields.length > 0) {
       return res.status(400).json({
         code: 400,
         message: "Missing required fields",
+        fields: missingFields,
+      });
+    }
+
+    return next();
+  };
+};
+
+const validateBodyArrayIdsFields = (fields) => {
+  return (req, res, next) => {
+    if (!fields) {
+      return res.status(400).json({ code: 400, message: "Missing fields ids" });
+    }
+
+    const missingFields = fields.filter((field) => {
+      return req.body[field].some((f) => !formatUtils.isAMongoId(f));
+    });
+
+    if (missingFields.length > 0) {
+      return res.status(400).json({
+        code: 400,
+        message: "Wrong ids",
         fields: missingFields,
       });
     }
@@ -78,6 +102,30 @@ const validateParamsField = (req, res, next, param) => {
   }
 
   return next();
+};
+
+const validateBodyFields = (fields) => {
+  return (req, res, next) => {
+    if (!fields) {
+      return res
+        .status(400)
+        .json({ code: 400, message: "Missing required fields" });
+    }
+
+    const missingFields = fields.filter((field) => {
+      return !req.body[field];
+    });
+
+    if (missingFields.length > 0) {
+      return res.status(400).json({
+        code: 400,
+        message: "Missing required fields",
+        fields: missingFields,
+      });
+    }
+
+    return next();
+  };
 };
 
 const validateBodyIdsFields = (fields) => {
@@ -157,4 +205,6 @@ export default {
   validateParamsField,
   formatFields,
   insertAuthPayload,
+  validateBodyArrayFields,
+  validateBodyArrayIdsFields,
 };

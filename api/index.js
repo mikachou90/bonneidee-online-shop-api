@@ -17,6 +17,8 @@ import { categorySchemaDoc } from "./models/Category.js";
 import { productSchemaDoc } from "./models/Product.js";
 import { colorSchemaDoc } from "./models/Color.js";
 import { orderSchemaDoc } from "./models/Order.js";
+import { favoriteSchemaDoc } from "./models/Favorite.js";
+
 //Routes Docs
 import { cartDocs } from "./routes/cart/doc/cart.js";
 import { categoriesDocs } from "./routes/categories/doc/categories.js";
@@ -24,6 +26,7 @@ import { colorsDocs } from "./routes/colors/doc/colors.js";
 import { productsDocs } from "./routes/products/doc/products.js";
 import { userDocs } from "./routes/users/doc/user.js";
 import { ordersDocs } from "./routes/orders/doc/orders.js";
+import { favoritesDocs } from "./routes/favorites/doc/favorites.js";
 
 const app = express();
 
@@ -51,6 +54,7 @@ const swaggerOptions = {
         ...productSchemaDoc,
         ...colorSchemaDoc,
         ...orderSchemaDoc,
+        ...favoriteSchemaDoc,
       },
     },
     paths: {
@@ -60,6 +64,7 @@ const swaggerOptions = {
       ...productsDocs,
       ...userDocs,
       ...ordersDocs,
+      ...favoritesDocs,
     },
     servers: [
       {
