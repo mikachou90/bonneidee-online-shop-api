@@ -24,11 +24,6 @@ const listOrders = async (req, res, next) => {
     if (orders.length === 0) {
       return res.status(404).json({ error: "No orders found" });
     }
-    if (orders.find((order) => order.userId.toString() !== userId)) {
-      return res
-        .status(401)
-        .json({ error: "You do not have access to these orders" });
-    }
     res.send(orders);
   } catch (err) {
     next(err);
