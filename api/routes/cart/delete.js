@@ -6,12 +6,20 @@ const deleteCart = async (req, res, next) => {
     const userId = req.user.id;
 
     //Validate body request
-    const cart = await Cart.findOne({ userId })
+    const carts = await Cart.find({ userId, orderId: { $exists: false } })
       .populate("products.product")
       .exec();
-    if (!cart) {
+
+    if (carts.length === 0) {
       return res.status(404).json({ error: "Cart not found" });
     }
+
+    if (carts.length > 1) {
+      //critical error, user has multiple active carts
+      return res.status(400).json({ error: "Multiple active carts found" });
+    }
+
+    const cart = carts[0];
 
     //Remove product from cart
     if (productId) {
