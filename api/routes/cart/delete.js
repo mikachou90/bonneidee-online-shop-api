@@ -24,16 +24,17 @@ const deleteCart = async (req, res, next) => {
     //Remove product from cart
     if (productId) {
       //check if the product exists in cart
-      const existingProduct = cart.products.find(
-        (p) => p.product._id.toString() === productId,
-      );
+      const existingProduct = cart.products.find((p) => {
+        return p.product._id.toString() === productId.toString();
+      });
+
       if (!existingProduct) {
         return res.status(400).json({ error: "Product not found in cart" });
       }
 
       //remove products from cart
       cart.products = cart.products.filter(
-        (p) => p.product._id.toString() !== productId,
+        (p) => p.product._id.toString() !== productId.toString(),
       );
     } else {
       //remove all products from cart

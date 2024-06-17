@@ -4,8 +4,9 @@ const getProduct = async (req, res, next) => {
   try {
     const productId = req.params.productId;
     const product = await Product.findById(productId)
+      .populate("category")
       .populate("colors")
-      .populate("category");
+      .exec();
     if (!product) {
       return res.status(404).json({ error: "Product not found" });
     }

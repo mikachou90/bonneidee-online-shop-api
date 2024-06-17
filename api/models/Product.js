@@ -5,13 +5,10 @@ const productSchema = Schema({
   price: { type: Number, index: true, required: true },
   description: { type: String },
   picture: { type: String },
-  colors: {
-    index: true,
-    required: true,
-    type: Array,
-    items: { type: Schema.Types.ObjectId, ref: "Color" },
-    default: [],
-  },
+  colors: [
+    { type: Schema.Types.ObjectId, ref: "Color" },
+    { index: true, required: true, default: [] },
+  ],
   category: {
     index: true,
     required: true,

@@ -11,9 +11,10 @@ const createCart = async (req, res, next) => {
     if (!product) {
       return res.status(400).json({ error: "Product not found" });
     }
+    console.log(product.colors, colorIds);
     //check if colors exists in product
     const colorExists = colorIds.every((colorId) =>
-      product.colors.some((color) => color._id.toString() === colorId),
+      product.colors.some((color) => color.toString() === colorId),
     );
     if (!colorExists) {
       return res
