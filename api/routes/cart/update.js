@@ -1,11 +1,12 @@
 import Cart from "../../models/Cart.js";
 import Product from "../../models/Product.js";
+import updateCartFromProducts from "./utils/updateCart.js";
 
 const updateCart = async (req, res, next) => {
   try {
     const userId = req.user.id;
+    console.log("userId", userId);
     const { products } = req.body;
-    // const { productId, quantity, colorId } = req.body;
 
     //Check if cart exists
     const carts = await Cart.find({
@@ -35,58 +36,24 @@ const updateCart = async (req, res, next) => {
 
     // --- Check if the request is valid ---
     await Promise.all(
-      products.map(async (product) => {
-        const { productId, colorId } = product;
+      products.map(async ({ productId, colorIds }) => {
+        //find product with colors and check if color exists
+        const product = await Product.find({
+          productId,
+          colorIds: { $in: colorIds },
+        }).exec();
 
-        //Check if products exists in cart
-        const existingProduct = cart.products.find(
-          (p) => p.product.toString() === productId,
-        );
-        if (!existingProduct) {
-          throw "Product not found in cart:" + productId;
-        }
-
-        if (colorId) {
-          //Check if color exists for product
-          const product = await Product.findById(productId).exec();
-          if (!product) {
-            throw "Product not found:" + productId;
-          }
-          const colorExists = product.colors.find(
-            (c) => c._id.toString() === colorId,
-          );
-          if (!colorExists) {
-            throw "Color not found for this product:" + productId;
-          }
+        if (!product) {
+          throw "Product not found:" + productId + ", colors:" + colorIds;
         }
       }),
     );
 
     // --- Update the cart ---
 
-    products.map((product) => {
-      const { productId, quantity, colorId } = product;
+    updateCartFromProducts(cart, products);
 
-      if (quantity && quantity === 0) {
-        //remove product from cart if quantity is 0
-        cart.products = cart.products.filter(
-          (p) => p.product.toString() !== productId,
-        );
-      } else {
-        // update product quantity and/or color
-        cart.products = cart.products.map((p) => {
-          if (p.product.toString() === productId) {
-            return {
-              product: productId,
-              quantity: quantity || p.quantity,
-              selectedColors: colorId || p.color,
-            };
-          } else {
-            return p;
-          }
-        });
-      }
-    });
+    console.log("Updated cart", cart);
 
     await cart.save();
     return res.send(cart);

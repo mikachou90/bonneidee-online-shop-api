@@ -1,5 +1,6 @@
 import Cart from "../../models/Cart.js";
 import Product from "../../models/Product.js";
+import updateCartFromProduct from "./utils/updateCart.js";
 
 const createCart = async (req, res, next) => {
   try {
@@ -11,7 +12,6 @@ const createCart = async (req, res, next) => {
     if (!product) {
       return res.status(400).json({ error: "Product not found" });
     }
-    console.log(product.colors, colorIds);
     //check if colors exists in product
     const colorExists = colorIds.every((colorId) =>
       product.colors.some((color) => color.toString() === colorId),
@@ -27,7 +27,7 @@ const createCart = async (req, res, next) => {
       return res.status(400).json({ error: "Quantity must be a number > 0" });
     }
 
-    //Add product to cart
+    //get the cart
     const openCarts = await Cart.find({
       userId,
       orderId: { $exists: false },
@@ -43,19 +43,13 @@ const createCart = async (req, res, next) => {
         ? openCarts[0]
         : new Cart({ userId, products: [] });
 
-    const existingProduct = cart.products.find(
-      (p) => p.product.toString() === productId,
-    );
+    // cart.products.push({
+    //   product: productId,
+    //   quantity,
+    //   selectedColors: colorIds,
+    // });
 
-    if (existingProduct) {
-      return res.status(400).json({ error: "Product already exists in cart" });
-    } else {
-      cart.products.push({
-        product: productId,
-        quantity,
-        selectedColors: colorIds,
-      });
-    }
+    updateCartFromProduct(cart, [{ productId, quantity, colorIds }]);
     await cart.save();
     res.send(cart);
   } catch (err) {

@@ -92,9 +92,9 @@ router.post(
 );
 router.patch(
   "/cart",
-  middleware.validateBodyFields(["productId"]),
-  middleware.formatFields([["quantity", "number"]]),
-  middleware.validateBodyIdsFields(["productId", "colorId"]),
+  // middleware.validateBodyFields(["productId"]),
+  // middleware.formatFields([["quantity", "number"]]),
+  // middleware.validateBodyIdsFields(["productId", "colorId"]),
   requests.cart.updateCart,
 );
 router.delete("/cart", requests.cart.deleteCart);
