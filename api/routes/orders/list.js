@@ -18,11 +18,8 @@ const listOrders = async (req, res, next) => {
     const ordersIdsFromCart = cartsWithOrder.map((c) => c.orderId);
     const orders = await Order.find({ _id: { $in: ordersIdsFromCart } }).exec();
 
-    if (!orders) {
-      return res.status(404).json({ error: "Orders not found" });
-    }
-    if (orders.length === 0) {
-      return res.status(404).json({ error: "No orders found" });
+    if (!orders || orders.length === 0) {
+      return res.status(200).json([]);
     }
     res.send(orders);
   } catch (err) {
